@@ -9,9 +9,6 @@ I modified things like:
 * fix on url and view to upload images and files
 * Created RedactorTextPlugin for integration with django-cms
 
-## Screenshot
-
-<img src="https://raw.github.com/douglasmiranda/django-wysiwyg-redactor/master/static/img/screenshot.png">
 
 What's that
 -----------
@@ -23,11 +20,9 @@ Dependence
 
 - `Django >= 1.3` # for static files
 - `PIL` # for image upload
-- Copy redactor library in the static directory of your project
 
 Getting started
 ---------------
-
 * Install django-wysiwyg-redactor:
 
 ``pip install -e git+https://github.com/frankhood/django-wysiwyg-redactor.git#egg=django-wysiwyg-redactor``
@@ -38,10 +33,14 @@ Getting started
 
 * Add default config in settings.py (more settings see: <https://github.com/douglasmiranda/django-wysiwyg-redactor/wiki/Settings>):
 
+
 ```python
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
 ```
+
+* buy license here: http://redactorjs.com/download/ and copy redactor library under `/static/redactor/` directory of your project
+
 
 Using in model
 --------------
@@ -89,7 +88,7 @@ Using for django-cms
 from redactor.cms_plugins import RedactorTextPlugin
 
 class ArticlePlugin(RedactorTextPlugin):
-    name = _('Articolo')
+    name = _('Article')
     render_template = "cms_plugins/article.html"
 
 ```
@@ -98,4 +97,3 @@ class ArticlePlugin(RedactorTextPlugin):
 # Redactor-js version 
 Tested with version 3.0.11 redactor-js
 
-For commercial use please buy license here: http://redactorjs.com/download/ or use earlier version.
