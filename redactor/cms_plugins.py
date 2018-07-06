@@ -450,11 +450,13 @@ class RedactorTextPlugin(CMSPluginBase):
         return super(RedactorTextPlugin, self).get_form(request, obj, **kwargs)
 
     def render(self, context, instance, placeholder):
+        from xml.sax.saxutils import unescape
+
         context.update({
-            'body': plugin_tags_to_user_html(
+            'body': unescape(plugin_tags_to_user_html(
                 instance.body,
                 context,
-            ),
+            )),
             'placeholder': placeholder,
             'object': instance
         })

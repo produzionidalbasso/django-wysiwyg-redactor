@@ -61,6 +61,8 @@ class AbstractText(CMSPlugin):
                 body = hyphenate(body, language=self.language)
             except (TypeError, CMSPlugin.DoesNotExist):
                 body = hyphenate(body)
+        from xml.sax.saxutils import unescape
+        body = unescape(body)
         self.body = body
         # no need to pass args or kwargs here
         # this 2nd save() call is internal and should be
