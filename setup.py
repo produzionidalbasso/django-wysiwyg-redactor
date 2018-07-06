@@ -1,6 +1,6 @@
 import os
 from setuptools import setup
-from redactor import VERSION
+#from redactor import VERSION
 
 f = open(os.path.join(os.path.dirname(__file__), 'README.md'))
 readme = f.read()
@@ -8,7 +8,7 @@ f.close()
 
 setup(
     name='django-wysiwyg-redactor',
-    version=".".join(map(str, VERSION)),
+    version="1.0"#.join(map(str, VERSION)),
     description='This reusable Django app using WYSIWYG editor redactorjs.com',
     long_description=readme,
     author="Douglas Miranda",
