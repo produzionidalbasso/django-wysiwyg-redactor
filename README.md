@@ -4,12 +4,10 @@
 
 I modified things like:
 
-* version of plugin redactorjs 7.6.3 (changes the license too)
-* new API method `$('#redactor').getSelection()` get the selected content in editor
-* new API method `$('#redactor').getSettings()` you can get and set settings anytime you want
-* removing some ajax calls, (modal windows), to avoid the crossdomain issue on production env
-* with the *extra_script* option/setting you can load some script to do something more after load the redactor
-* fixing some bugs, adapting things...
+* dyrectory static has been deleted
+* method RedactorEditor.media has been fixed to import also css files of redactor plugins
+* fix on url and view to upload images and files
+* Created RedactorTextPlugin for integration with django-cms
 
 ## Screenshot
 
@@ -25,13 +23,14 @@ Dependence
 
 - `Django >= 1.3` # for static files
 - `PIL` # for image upload
+- Copy redactor library in the static directory of your project
 
 Getting started
 ---------------
 
 * Install django-wysiwyg-redactor:
 
-``pip install django-wysiwyg-redactor``
+``pip install -e git+https://github.com/frankhood/django-wysiwyg-redactor.git#egg=django-wysiwyg-redactor``
 
 * Add `'redactor'` to INSTALLED_APPS.
 
@@ -83,7 +82,20 @@ class EntryAdmin(admin.ModelAdmin):
 
 `RedactorEditor` takes the same parameters as `RedactorField`
 
-## License 
-Starting with version 7.6.2 redactor-js is licensed under [Creative Commons Attribution-NonCommercial 3.0 license](http://creativecommons.org/licenses/by-nc/3.0/)
+
+Using for django-cms
+-----------------------------
+```python
+from redactor.cms_plugins import RedactorTextPlugin
+
+class ArticlePlugin(RedactorTextPlugin):
+    name = _('Articolo')
+    render_template = "cms_plugins/article.html"
+
+```
+
+
+# Redactor-js version 
+Tested with version 3.0.11 redactor-js
 
 For commercial use please buy license here: http://redactorjs.com/download/ or use earlier version.
