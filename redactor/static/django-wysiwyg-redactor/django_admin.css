@@ -1,6 +1,6 @@
 .redactor-box {
   float: left;
-  width: 100%;
+  width: calc(100% - 190px);
 }
 body .redactor-box ul{
   margin-left: auto;
