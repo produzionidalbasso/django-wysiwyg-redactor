@@ -45,7 +45,7 @@ class RedactorEditor(widgets.Textarea):
     def _media(self):
         _min = '' if settings.DEBUG else '.min'
         js = (
-            'redactor/jquery.redactor.init.js',
+            'django-wysiwyg-redactor/jquery.redactor.init.js',
             'redactor/redactor{}.js'.format(_min),
             'redactor/langs/{}.js'.format(self.options.get('lang', 'en')),
         )
@@ -60,7 +60,7 @@ class RedactorEditor(widgets.Textarea):
         css = {
             'all': (
                 'redactor/redactor{}.css'.format(_min),
-                'redactor/django_admin.css',
+                'django-wysiwyg-redactor/django_admin.css',
             )
         }
 
