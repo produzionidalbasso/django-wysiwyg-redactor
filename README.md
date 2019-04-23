@@ -18,8 +18,8 @@ What's that
 Dependence
 -----------
 
-- `Django >= 1.3` # for static files
-- `PIL` # for image upload
+- `Django >= 1.11`
+- `PIL`
 
 Getting started
 ---------------
@@ -29,7 +29,7 @@ Getting started
 
 * Add `'redactor'` to INSTALLED_APPS.
 
-* Add `url(r'^redactor/', include('redactor.urls'))`, to urls.py
+* Add `path('redactor/', include('redactor.urls')),` to urls.py
 
 * Add default config in settings.py (more settings see: <https://github.com/douglasmiranda/django-wysiwyg-redactor/wiki/Settings>):
 

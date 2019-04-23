@@ -1,16 +1,14 @@
 
-from django.conf.urls import url
+from django.urls import path, re_path
 
 from redactor.views import RedactorUploadView
-from redactor.forms import FileForm, ImageForm
-
 
 urlpatterns = [
-    url(r'^upload/image/(?P<upload_to>)',
+    re_path(r'^upload/image/(?P<upload_to>)',
         RedactorUploadView.as_view(),
         name='redactor_upload_image'),
 
-    url(r'^upload/file/(?P<upload_to>)',
+    re_path(r'^upload/file/(?P<upload_to>)',
         RedactorUploadView.as_view(),
         name='redactor_upload_file'),
 ]
