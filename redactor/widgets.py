@@ -2,8 +2,12 @@ import logging
 from django import forms
 from django.forms import widgets
 from django.utils.safestring import mark_safe
-from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
+try:
+    from django.urls import reverse_lazy
+except ImportError:  # Django < 1.10 pragma: no cover
+    from django.core.urlresolvers import reverse_lazy
+
 
 from redactor.utils import json_dumps
 
