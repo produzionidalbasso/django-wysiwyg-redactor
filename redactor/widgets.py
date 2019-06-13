@@ -36,14 +36,14 @@ class RedactorEditor(widgets.Textarea):
         kwargs['attrs'] = widget_attrs
         super(RedactorEditor, self).__init__(*args, **kwargs)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         """
         Must parse self.options with json_dumps on self.render.
         Because at some point Django calls RedactorEditor.__init__ before
         loading the urls, and it will break.
         """
         attrs['data-redactor-options'] = json_dumps(self.options)
-        html = super(RedactorEditor, self).render(name, value, attrs)
+        html = super(RedactorEditor, self).render(name, value, attrs, renderer)
         return mark_safe(html)
 
     def _media(self):
