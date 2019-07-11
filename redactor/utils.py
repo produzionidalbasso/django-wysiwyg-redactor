@@ -9,14 +9,9 @@ from django.utils.functional import Promise
 
 import json
 import os
-import re
-from collections import OrderedDict
 from functools import wraps
 
-from classytags.utils import flatten_context
 from django.core.files.storage import get_storage_class
-from django.template.defaultfilters import force_escape
-from django.template.loader import render_to_string
 from django.utils.decorators import available_attrs
 from django.utils.functional import LazyObject
 
