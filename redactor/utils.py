@@ -3,6 +3,7 @@ from collections import OrderedDict
 
 from classytags.utils import flatten_context
 from cms.models import CMSPlugin
+from cms.utils.compat.dj import available_attrs
 from django.core.exceptions import ImproperlyConfigured
 from importlib import import_module
 
@@ -20,7 +21,7 @@ import os
 from functools import wraps
 
 from django.core.files.storage import get_storage_class
-from django.utils.decorators import available_attrs
+# from django.utils.decorators import available_attrs
 from django.utils.functional import LazyObject
 
 OBJ_ADMIN_RE_PATTERN = r'<cms-plugin .*?\bid="(?P<pk>\d+)".*?>.*?</cms-plugin>'
