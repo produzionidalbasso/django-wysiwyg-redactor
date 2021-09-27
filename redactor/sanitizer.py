@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from html5lib.filters import sanitizer
+from html5lib import sanitizer
 
 
 class AllowTokenParser():

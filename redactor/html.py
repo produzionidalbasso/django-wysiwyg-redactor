@@ -6,8 +6,7 @@ import uuid
 import html5lib
 from django.utils.module_loading import import_string
 from six import BytesIO
-from html5lib.filters import sanitizer
-from html5lib import serializer, treebuilders, treewalkers
+from html5lib import sanitizer, serializer, treebuilders, treewalkers
 from PIL import Image
 
 from . import settings
