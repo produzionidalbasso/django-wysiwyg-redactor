@@ -85,12 +85,13 @@ class EntryAdmin(admin.ModelAdmin):
 Using for django-cms
 -----------------------------
 ```python
+from cms.plugin_pool import plugin_pool
 from redactor.cms_plugins import RedactorTextPlugin
 
 class ArticlePlugin(RedactorTextPlugin):
     name = _('Article')
     render_template = "cms_plugins/article.html"
-
+plugin_pool.register_plugin(ArticlePlugin)
 ```
 
 
