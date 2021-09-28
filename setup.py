@@ -14,7 +14,7 @@ setup(
     author="Douglas Miranda",
     author_email='douglasmirandasilva@gmail.com',
     url='https://github.com/douglasmiranda/django-wysiwyg-redactor',
-    packages=['redactor'],
+    packages=['redactor','html5lib==0.9999999'],
     include_package_data=True,
     install_requires=['setuptools'],
     zip_safe=False,
