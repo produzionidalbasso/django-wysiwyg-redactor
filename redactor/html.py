@@ -6,41 +6,45 @@ import uuid
 import html5lib
 from django.utils.module_loading import import_string
 from six import BytesIO
-from html5lib import sanitizer, serializer, treebuilders, treewalkers
+from html5lib import serializer, treebuilders, treewalkers
 from PIL import Image
 
 from . import settings
-from .sanitizer import TextSanitizer
+# from .sanitizer import TextSanitizer
 from .utils import plugin_to_tag
 
 
 def _get_default_parser():
     opts = {}
 
-    sanitizer.HTMLSanitizer.acceptable_elements.extend(['cms-plugin'])
+    # HTMLSanitizer.acceptable_elements.extend(['cms-plugin'])
 
     if settings.TEXT_HTML_SANITIZE:
-        sanitizer.HTMLSanitizer.acceptable_elements.extend(
-            settings.TEXT_ADDITIONAL_TAGS)
-        sanitizer.HTMLSanitizer.acceptable_attributes.extend(
-            settings.TEXT_ADDITIONAL_ATTRIBUTES)
-        sanitizer.HTMLSanitizer.allowed_elements = (
-            sanitizer.HTMLSanitizer.acceptable_elements +
-            sanitizer.HTMLSanitizer.mathml_elements +
-            sanitizer.HTMLSanitizer.svg_elements)
-        sanitizer.HTMLSanitizer.allowed_attributes = (
-            sanitizer.HTMLSanitizer.acceptable_attributes +
-            sanitizer.HTMLSanitizer.mathml_attributes +
-            sanitizer.HTMLSanitizer.svg_attributes)
-        sanitizer.HTMLSanitizer.allowed_protocols = (
-            sanitizer.HTMLSanitizer.acceptable_protocols +
-            list(settings.TEXT_ADDITIONAL_PROTOCOLS))
-        parser_classes = []
-        for parser_class in settings.ALLOW_TOKEN_PARSERS:
-            parser_classes.append(import_string(parser_class))
+        # from html5lib import sanitizer
+        # from .sanitizer import HTMLSanitizer
 
-        TextSanitizer.allow_token_parsers = parser_classes
-        opts['tokenizer'] = TextSanitizer
+        # sanitizer.HTMLSanitizer.acceptable_elements.extend(
+        #     settings.TEXT_ADDITIONAL_TAGS)
+        # sanitizer.HTMLSanitizer.acceptable_attributes.extend(
+        #     settings.TEXT_ADDITIONAL_ATTRIBUTES)
+        # sanitizer.HTMLSanitizer.allowed_elements = (
+        #     sanitizer.HTMLSanitizer.acceptable_elements +
+        #     sanitizer.HTMLSanitizer.mathml_elements +
+        #     sanitizer.HTMLSanitizer.svg_elements)
+        # sanitizer.HTMLSanitizer.allowed_attributes = (
+        #     sanitizer.HTMLSanitizer.acceptable_attributes +
+        #     sanitizer.HTMLSanitizer.mathml_attributes +
+        #     sanitizer.HTMLSanitizer.svg_attributes)
+        # sanitizer.HTMLSanitizer.allowed_protocols = (
+        #     sanitizer.HTMLSanitizer.acceptable_protocols +
+        #     list(settings.TEXT_ADDITIONAL_PROTOCOLS))
+        # parser_classes = []
+        # for parser_class in settings.ALLOW_TOKEN_PARSERS:
+        #     parser_classes.append(import_string(parser_class))
+
+        # TextSanitizer.allow_token_parsers = parser_classes
+        # opts['tokenizer'] = TextSanitizer
+        ...
 
     return html5lib.HTMLParser(tree=treebuilders.getTreeBuilder("dom"),
                                **opts)
