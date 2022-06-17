@@ -16,7 +16,7 @@ setup(
     url='https://github.com/douglasmiranda/django-wysiwyg-redactor',
     packages=['redactor'],
     include_package_data=True,
-    install_requires=['setuptools','html5lib==0.9999999'],
+    install_requires=['setuptools','html5lib==1.1'],
     zip_safe=False,
     classifiers=[
     'Development Status :: 4 - Beta',
