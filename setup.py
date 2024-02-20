@@ -8,7 +8,7 @@ f.close()
 
 setup(
     name='django-wysiwyg-redactor',
-    version="1.0",#.join(map(str, VERSION)),
+    version="1.1",#.join(map(str, VERSION)),
     description='This reusable Django app using WYSIWYG editor redactorjs.com',
     long_description=readme,
     author="Douglas Miranda",
@@ -19,9 +19,10 @@ setup(
     install_requires=['setuptools'],
     zip_safe=False,
     classifiers=[
-    'Development Status :: 4 - Beta',
+        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
-        'Framework :: Django',
+        'Framework :: Django 3.2',
+        'Framework :: Django 4.2',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',

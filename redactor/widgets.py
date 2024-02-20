@@ -1,9 +1,10 @@
 import logging
 from django import forms
-from django.forms import widgets
-from django.utils.safestring import mark_safe
-from django.core.urlresolvers import reverse_lazy
+from django.contrib.staticfiles import finders
 from django.conf import settings
+from django.forms import widgets
+from django.urls import reverse_lazy
+from django.utils.safestring import mark_safe
 
 from redactor.utils import json_dumps
 
@@ -32,31 +33,27 @@ class RedactorEditor(widgets.Textarea):
         kwargs['attrs'] = widget_attrs
         super(RedactorEditor, self).__init__(*args, **kwargs)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, **kwargs):
         """
         Must parse self.options with json_dumps on self.render.
         Because at some point Django calls RedactorEditor.__init__ before
         loading the urls, and it will break.
         """
         attrs['data-redactor-options'] = json_dumps(self.options)
-        html = super(RedactorEditor, self).render(name, value, attrs)
+        html = super(RedactorEditor, self).render(name, value, attrs, **kwargs)
         return mark_safe(html)
 
-    def _media(self):
+
+    @property
+    def media(self):
         _min = '' if settings.DEBUG else '.min'
         js = (
+            'admin/js/vendor/jquery/jquery%s.js' % _min,
+            'admin/js/jquery.init.js',
             'django-wysiwyg-redactor/jquery.redactor.init.js',
             'redactor/redactor{}.js'.format(_min),
             'redactor/langs/{}.js'.format(self.options.get('lang', 'en')),
         )
-
-        if 'plugins' in self.options:
-            plugins = self.options.get('plugins')
-            for plugin in plugins:
-                js = js + (
-                    'redactor/plugins/{}.js'.format(plugin),
-                )
-
         css = {
             'all': (
                 'redactor/redactor{}.css'.format(_min),
@@ -65,18 +62,17 @@ class RedactorEditor(widgets.Textarea):
         }
 
         if 'plugins' in self.options:
-            plugins = self.options.get('plugins')
-            for plugin in plugins:
+            for plugin in self.options.get('plugins'):
                 try:
-                    from django.contrib.staticfiles import finders
-                    result = finders.find('redactor/plugins/{}.css'.format(plugin))
-                    if result is not None:
+                    if finders.find('redactor/plugins/{}.css'.format(plugin)) is not None:
                         css['all'] = css['all'] + (
                             'redactor/plugins/{}.css'.format(plugin),
                         )
+                    if finders.find('redactor/plugins/{}.js'.format(plugin)) is not None:
+                        js = js + (
+                            'redactor/plugins/{}.js'.format(plugin),
+                        )
                 except:
-                    logger.exception("An error has occurred on load plugins css")
+                    logger.exception("An error has occurred on load plugins {}".format(plugin))
 
         return forms.Media(css=css, js=js)
-
-    media = property(_media)
