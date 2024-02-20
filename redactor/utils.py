@@ -4,7 +4,10 @@ from importlib import import_module
 try:
     from django.utils.encoding import force_text
 except ImportError:
-    from django.utils.encoding import force_unicode as force_text
+    try:
+        from django.utils.encoding import force_unicode as force_text
+    except ImportError:
+        from django.utils.encoding import force_str as force_text
 from django.utils.functional import Promise
 
 import json
