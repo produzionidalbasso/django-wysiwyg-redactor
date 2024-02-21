@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django import forms
 from django.core import signing
 from django.core.signing import BadSignature
@@ -17,7 +16,7 @@ class ActionTokenValidationForm(forms.Form):
     token = forms.CharField(required=True)
 
     def get_id_from_token(self, session_id):
-        payload = self.cleaned_data['token']
+        payload = self.cleaned_data["token"]
 
         signer = signing.Signer(salt=session_id)
 
