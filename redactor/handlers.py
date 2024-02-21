@@ -1,11 +1,13 @@
+import datetime
 import os
 import uuid
-import datetime
+
 from django.conf import settings
+
 from redactor.utils import import_class
 
 
-class BaseUploaderRedactor(object):
+class BaseUploaderRedactor:
     """
     Base class for uploader handler.
     """
@@ -14,8 +16,11 @@ class BaseUploaderRedactor(object):
         self.upload_file = upload_file
         self.upload_to = upload_to
 
-        file_storage_class = getattr(settings, 'REDACTOR_FILE_STORAGE',
-                                     'django.core.files.storage.DefaultStorage')
+        file_storage_class = getattr(
+            settings,
+            "REDACTOR_FILE_STORAGE",
+            "django.core.files.storage.DefaultStorage",
+        )
 
         # File storage can either be a Storage instance (currently deprecated),
         # or a class which we should instantiate ourselves
@@ -42,16 +47,17 @@ class BaseUploaderRedactor(object):
         """
         Save file and return real path
         """
-        if not hasattr(self, 'real_path'):
-            self.real_path = self.file_storage.save(self.get_full_path(),
-                                                    self.get_file())
+        if not hasattr(self, "real_path"):
+            self.real_path = self.file_storage.save(
+                self.get_full_path(), self.get_file()
+            )
         return self.real_path
 
     def get_url(self):
         """
         Return url for file if he saved else None
         """
-        if not hasattr(self, 'real_path'):
+        if not hasattr(self, "real_path"):
             return None
         else:
             return self.file_storage.url(self.real_path)
@@ -70,13 +76,14 @@ class BaseUploaderRedactor(object):
 
     @staticmethod
     def get_default_upload_path():
-        return getattr(settings, 'REDACTOR_UPLOAD', 'redactor/')
+        return getattr(settings, "REDACTOR_UPLOAD", "redactor/")
 
 
 class SimpleUploader(BaseUploaderRedactor):
     """
     Standard uploader: default directory, default name
     """
+
     def get_filename(self):
         return self.upload_file.name
 
@@ -90,11 +97,12 @@ class UUIDUploader(SimpleUploader):
 
     /REDACTOR_UPLOAD/546de5b5-cf05-4b47-9379-3f964732b802.etc
     """
+
     def get_filename(self):
-        if not hasattr(self, 'filename'):
+        if not hasattr(self, "filename"):
             # save filename prevents the generation of a new
-            extension = self.upload_file.name.split('.')[-1]
-            self.filename = '{0}.{1}'.format(uuid.uuid4(), extension)
+            extension = self.upload_file.name.split(".")[-1]
+            self.filename = f"{uuid.uuid4()}.{extension}"
         return self.filename
 
 
@@ -104,7 +112,8 @@ class DateDirectoryUploader(SimpleUploader):
 
     /2014/3/28/filename.etc
     """
+
     def get_upload_path(self):
         today = datetime.datetime.today()
-        path = '{0}/{1}/{2}'.format(today.year, today.month, today.day)
+        path = f"{today.year}/{today.month}/{today.day}"
         return path
